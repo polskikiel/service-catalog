@@ -20,7 +20,6 @@ spec:
         spec:
           required:
           - "url"
-          - "relistBehavior"
           properties:
             url:
               type: string
@@ -89,7 +88,6 @@ spec:
         spec:
           required:
           - "url"
-          - "relistBehavior"
           properties:
             url:
               type: string
@@ -188,6 +186,8 @@ spec:
                 type: string
             externalMetadata:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -195,6 +195,8 @@ spec:
                     type: byte
             defaultProvisionParameters:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -255,6 +257,8 @@ spec:
                   type: string
               externalMetadata:
                 type: object
+                required:
+                - "raw"
                 properties:
                   raw:
                     type: array
@@ -262,6 +266,8 @@ spec:
                       type: byte
               defaultProvisionParameters:
                 type: object
+                required:
+                - "raw"
                 properties:
                   raw:
                     type: array
@@ -320,6 +326,8 @@ spec:
               type: boolean
             instanceCreateParameterSchema:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -327,6 +335,8 @@ spec:
                     type: byte
             instanceUpdateParameterSchema:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -334,6 +344,8 @@ spec:
                     type: byte
             serviceBindingCreateParameterSchema:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -341,6 +353,8 @@ spec:
                     type: byte
             serviceBindingCreateResponseSchema:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -348,6 +362,8 @@ spec:
                     type: byte
             defaultProvisionParameters:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -407,6 +423,8 @@ spec:
               type: boolean
             instanceCreateParameterSchema:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -414,6 +432,8 @@ spec:
                     type: byte
             instanceUpdateParameterSchema:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -421,6 +441,8 @@ spec:
                     type: byte
             serviceBindingCreateParameterSchema:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -428,6 +450,8 @@ spec:
                     type: byte
             serviceBindingCreateResponseSchema:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -435,6 +459,8 @@ spec:
                     type: byte
             defaultProvisionParameters:
               type: object
+              required:
+              - "raw"
               properties:
                 raw:
                   type: array
@@ -492,21 +518,29 @@ spec:
                     type: string
               clusterServiceClassRef:
                 type: object
+                required:
+                - "name"
                 properties:
                   name:
                     type: string
               clusterServicePlanRef:
                 type: object
+                required:
+                - "name"
                 properties:
                   name:
                     type: string
               serviceClassRef:
                 type: object
+                required:
+                - "name"
                 properties:
                   name:
                     type: string
               servicePlanRef:
                 type: object
+                required:
+                - "name"
                 properties:
                   name:
                     type: string
@@ -588,8 +622,10 @@ spec:
                 properties:
                   name:
                     type: string
+                    maxLength: 253
               secretName:
                 type: string
+                maxLength: 253
               externalID:
                 type: string
               secretTransform:
