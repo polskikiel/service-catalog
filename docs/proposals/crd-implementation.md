@@ -93,7 +93,7 @@ webhooks:
     resources: ["serviceinstances"]
 ```
 
-> **NOTE:** The each kind is registered separately in the **webhooks** array.
+> **NOTE:** Each kind is registered separately in the **webhooks** array.
 
 If the resource is registered, the webhook logic will be triggered when the registered operation on this resource occurs. The example of the webhook logic implementation looks as follows:
 
