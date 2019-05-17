@@ -2,7 +2,7 @@
 
 ## Implemented features
 
-The API server custom features were migrated to a admission webhook approach.
+The API server custom features were migrated to the admission webhook approach.
 
 The table converter API server feature was migrated to the [Additional Printer Columns](https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/#additional-printer-columns) feature.
 
@@ -12,7 +12,7 @@ The architecture after the migration looks as follows:
 
 <img src="/docs/images/current.png" width="75%" height="75%">
 
-The Service Catalog resources are grouped under `svcat` name. With that feature you can list them with the `kubectl get svcat` command.
+The Service Catalog resources are grouped under the `svcat` name. With that feature, you can list them with the `kubectl get svcat` command.
 
 ### Chart changes
 
@@ -22,7 +22,7 @@ The following files were added to the Service Catalog helm chart:
 - **webhook-deployment.yaml** - webhook server deployment.
 - **webhook-register.yaml** - registration of the webhook server operations.
 - **webhook-service.yaml** - service for the webhook server.
-- **cleaner-job.yaml** - creates the `pre-delete` job which makes sure if all CRDs and CRs are removed after helm release deletion.
+- **cleaner-job.yaml** - creates the `pre-delete` job which ensures that all CRDs and CRs are removed after helm release deletion.
 
 These files were deleted from the Service Catalog helm chart because they are not necessary anymore due to the API server removal:
 
@@ -39,15 +39,15 @@ The following code changes were introduced to the Service Catalog:
 
 - **pkg/webhookutil** - under this directory you can find the common logic used in the webhook server implementation.
 - **pkg/webhook/servicecatalog** - here you can find the webhook server logic for all of the Service Catalog resources.
-- **cmd/webhook/server** - the implementation of the webhook server, here you can find the validation and mutation webhook registration.
-- **pkg/cleaner** - responsible for removing CRD and CR during removing helm release.
-- **pkg/probe** - responsible for checking if webhook/controller is ready to use (readiness probe), in details if all required CRDs exist and have specific state.
+- **cmd/webhook/server** - the implementation of the webhook server where you can find the validation and mutation webhook registration.
+- **pkg/cleaner** - responsible for removing CRD and CR when removing a helm release.
+- **pkg/probe** - responsible for checking if webhook/controller is ready to use (readiness probe), especially if all required CRDs exist and have specific state.
 
 All of the webhook logic is covered by the unit tests. The API server tests were deleted.
 
-### Implementation
+## Implementation
 
-Mutating and validating admission webhooks are registered in the chart's file **webhook-register.yaml**. For example the registration of the Service Instances looks as follows:
+Mutating and validating admission webhooks are registered in the chart's file **webhook-register.yaml**. For example, the registration of the Service Instances looks as follows:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1beta1
@@ -95,10 +95,10 @@ webhooks:
 
 > **NOTE:** The each kind is registered separately in the **webhooks** array.
 
-If the resource is registered, the webhook logic will be triggered when the registered operation on this resource occurs. The example of the webhook logic implementation looks as following:
+If the resource is registered, the webhook logic will be triggered when the registered operation on this resource occurs. The example of the webhook logic implementation looks as follows:
 
 ```go
-// Handle handles admission requests.
+// Handle admission requests.
 func (h *CreateUpdateHandler) Handle(ctx context.Context, req admission.Request) admission.Response {
     si := &sc.ServiceInstance{}
 	webhookutil.MatchKinds(si, req.Kind)
@@ -122,4 +122,4 @@ func (h *CreateUpdateHandler) Handle(ctx context.Context, req admission.Request)
 
 > **NOTE:** The webhook implementation logic is common for all of the resources.
 
-For the webhook server implementation the [sigs.k8s.io/controller-runtime](https://github.com/kubernetes-sigs/controller-runtime) dependency is used in the latest version - `v0.2.0-beta.0`.
+For the webhook server implementation, the [sigs.k8s.io/controller-runtime](https://github.com/kubernetes-sigs/controller-runtime) dependency is used in the latest version - `v0.2.0-beta.0`.
